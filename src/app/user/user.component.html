@@ -4,10 +4,10 @@
   <img (click)="greet()" src="https://github.com/Armax7.png" alt="photo" />
   <app-games (addFavoriteEvent)="getFav($event)" username="{{ username }}" />
   <button (click)="logOut()">Log Out</button>
-  }@else {
+  @if(favGame !== ''){
+  <p>Your favorite game is {{ favGame }}</p>
+  } }@else {
   <p>¡Sign In!</p>
   <button (click)="isLoggedIn = true">Log In</button>
-  } @if(favGame !== ''){
-  <p>Your favorite game is {{ favGame }}</p>
   }
 </section>
