@@ -1,5 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+// import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import * as Core from '@angular/core';
+import { Component } from '@angular/core';
 import { Game } from '../../Interfaces/game';
+import { GamesService } from '../../Services/games.service';
 
 @Component({
   selector: 'app-games',
@@ -8,7 +11,7 @@ import { Game } from '../../Interfaces/game';
   template: `
     <h3>Favorite games of {{ username }}</h3>
     <ul>
-      @for(game of games; track game.id){
+      @for(game of gamesList; track game.id){
       <li (click)="fav(game.name)">{{ game.name }}</li>
       }
     </ul>
@@ -16,22 +19,17 @@ import { Game } from '../../Interfaces/game';
   styles: ``,
 })
 export class GamesComponent {
-  @Input() username = '';
-  @Output() addFavoriteEvent = new EventEmitter<string>();
+  @Core.Input() username = '';
+  @Core.Output() addFavoriteEvent = new Core.EventEmitter<string>();
+
+  gamesList: Game[] = [];
+  gamesService: GamesService = Core.inject(GamesService);
+
+  constructor() {
+    this.gamesList = this.gamesService.getAllGames();
+  }
 
   fav(gameName: string) {
     this.addFavoriteEvent.emit(gameName);
   }
-
-  games: Game[] = [
-    { id: 1, name: 'Uncharted' },
-    { id: 2, name: 'Halo' },
-    { id: 3, name: 'Monster Hunter' },
-    { id: 4, name: 'Dark Souls' },
-    { id: 4, name: 'Bloodborne' },
-    { id: 6, name: 'Overcooked' },
-    { id: 7, name: 'The Legend of Zelda' },
-    { id: 8, name: 'Gears of War' },
-    { id: 9, name: 'The Witcher' },
-  ];
 }
