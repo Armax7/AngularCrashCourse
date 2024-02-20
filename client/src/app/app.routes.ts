@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import * as Pages from './Pages';
+import * as Components from './Components';
 
 export const routes: Routes = [
   {
@@ -11,5 +12,10 @@ export const routes: Routes = [
     path: 'details',
     title: 'App Details Page',
     component: Pages.DetailsComponent,
+  },
+  {
+    path: ':user',
+    title: 'App Details Page',
+    component: Components.VideoPlayerComponent,
   },
 ];
